@@ -7,7 +7,6 @@ from typing import (
 
 import orjson as json
 from aiobaseclient import BaseClient
-
 from aiolibgen.exceptions import (
     ClientError,
     ExternalServiceError,
@@ -28,7 +27,7 @@ class Client(BaseClient):
         'series',
         'year',
         'language',
-        'isbn',
+        'identifier',
         'id',
         'coverurl',
         'doi',
