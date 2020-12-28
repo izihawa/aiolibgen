@@ -1,24 +1,15 @@
-import asyncio
-
 import fire
-from aiolibgen.client import Client
+from aiokit.utils import sync_fu
+from aiolibgen.client import LibgenClient
 
 
-async def works(base_url, ids):
-    c = Client(base_url)
-    try:
-        await c.start()
+async def books(base_url, ids):
+    async with LibgenClient(base_url=base_url) as c:
         return await c.by_ids(ids)
-    finally:
-        await c.stop()
-
-
-def cli(base_url, ids):
-    return asyncio.get_event_loop().run_until_complete(works(base_url, ids))
 
 
 def main():
-    fire.Fire(cli)
+    fire.Fire(sync_fu(books))
 
 
 if __name__ == '__main__':
