@@ -73,11 +73,11 @@ class LibgenClient(BaseClient):
     async def response_processor(self, response):
         text = await response.text()
         if response.status == 404:
-            raise NotFoundError(status=response.status, text=text, url=response.url)
+            raise NotFoundError(status=response.status, text=text, url=str(response.url))
         elif response.status == 500 and 'max_user_connections' in text:
             raise ExceededConnectionsError()
         elif response.status != 200:
-            raise ExternalServiceError(response.url, response.status, text)
+            raise ExternalServiceError(str(response.url), response.status, text)
         data = json.loads(text)
         if isinstance(data, Dict) and 'error' in data:
             raise ClientError(**data)
