@@ -1,3 +1,4 @@
+import logging
 from typing import (
     Dict,
     Iterable,
@@ -68,6 +69,7 @@ class LibgenClient(BaseClient):
             for row in rows:
                 timenewer = row['timelastmodified']
                 idnewer = row['id']
+                logging.getLogger('statbox').info(row)
                 yield row
 
     async def response_processor(self, response):
